@@ -1,8 +1,6 @@
 name: pylint
 on: [pull_request]
 jobs:
-  run-pylint:
-  name: Run-pylint
   runs-on: ubuntu-latest
   steps:
     - name: Check out Git repository
