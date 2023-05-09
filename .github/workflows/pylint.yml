@@ -15,15 +15,24 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.9'
-      - name: Install tobac
-        run: pip install .
+      - name: Install tobac and pylint 
+        run: |
+          pip install .
+          pip install --upgrade pylint
+
+      - name: Caching
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-
+
       - name: Lint with pylint
         id: pylint-output
         # omit conventions, for minimum score use: --fail-under=
         run: |
           pip install pylint
-          OUTPUT=$(pylint tobac --disable=C --exit-zero)
-          OUTPUT_PART=$(echo $OUTPUT | tail -n 3)
+          pylint tobac --disable=C --exit-zero
+          OUTPUT_PART=$(pylint tobac --disable=C | tail -n 3)
           #OUTPUT=$(shell command or script to extract the part of the output that we wanna post as comment)
           # define random delimiter for multiline string
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
