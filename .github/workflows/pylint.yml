@@ -1,9 +1,8 @@
 name: Linting
 on:
-  branches:
-    - 'main'
-  pull-request:
+  pull_request:
     branches:
+      - 'main'
       - 'lint*'
 
 jobs:
