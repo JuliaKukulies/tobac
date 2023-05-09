@@ -19,19 +19,6 @@ jobs:
           pip install .
           pip install --upgrade pylint
 
-      - name: Caching
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.pythonLocation }}
-          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}
-
-
-      - name: linting on main for comparison
-        uses: actions/checkout@v3
-        with:
-          ref: main
-        run: MAIN=$(pylint tobac --disable=C --exit-zero)
-
       - name: Lint with pylint
         # omit conventions, for minimum score use: --fail-under=
         run: |
@@ -44,6 +31,15 @@ jobs:
           echo "MESSAGE<<$EOF" >> "$GITHUB_ENV"
           echo "$OUTPUT_PART" >> "$GITHUB_ENV"
           echo "$EOF" >> "$GITHUB_ENV"
+
+
+      - name: Caching
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}
+
+
       - name: Post result to PR
         uses: mshick/add-pr-comment@v1
         with:
