@@ -9,7 +9,7 @@ jobs:
       OS: ubuntu-latest
       PYTHON: "3.9"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # Similar to MetPy install-conda action
       - name: Set up conda
         uses: conda-incubator/setup-miniconda@v2
