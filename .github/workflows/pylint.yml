@@ -33,7 +33,7 @@ jobs:
           echo "$EOF" >> "$GITHUB_ENV"
 
 
-      - name: Caching
+      - name: Cache python environment
         uses: actions/cache@v2
         with:
           path: ${{ env.pythonLocation }}
