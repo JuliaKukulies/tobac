@@ -2,7 +2,6 @@ name: Linting
 on:
   pull_request:
     branches:
-      - 'main'
       - 'lintin*'
 
 jobs:
@@ -24,10 +23,16 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.pythonLocation }}
-          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-
+          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}
+
+      # run on main to compare to previous score
+      - name: Lint with python on main
+        on:
+          branches:
+            - 'main'
+        run: pylint tobac --disable=C --exit-zero
 
       - name: Lint with pylint
-        id: pylint-output
         # omit conventions, for minimum score use: --fail-under=
         run: |
           # use shell script to save only tail of output  
