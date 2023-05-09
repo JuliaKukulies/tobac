@@ -18,11 +18,11 @@ References
 """
 
 import logging
+import warnings
 import numpy as np
 import pandas as pd
 from .utils import internal as internal_utils
 from tobac.utils.general import spectral_filtering
-import warnings
 
 
 def feature_position(
@@ -316,7 +316,6 @@ def feature_detection_threshold(
 
     from skimage.measure import label
     from skimage.morphology import binary_erosion
-    from copy import deepcopy
 
     if min_num != 0:
         warnings.warn(
