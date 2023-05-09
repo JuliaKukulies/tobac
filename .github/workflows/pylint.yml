@@ -17,6 +17,7 @@ jobs:
         # omit conventions, for minimum score use: --fail-under=
         run: |
           pip install pylint
+          pylint tobac --disable=C --exit-zero
           OUTPUT=$(pylint tobac --disable=C | tail -n 3)
           #OUTPUT=$(shell command or script to extract the part of the output that we wanna post as comment)
           # define random delimiter for multiline string
