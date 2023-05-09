@@ -13,11 +13,10 @@ jobs:
         python-version: '3.9'
     - name: Install tobac
       run: pip install .
-    - name: Install pylint
-      run: pip install pylint
     - name: Lint with pylint
       # omit conventions, for minimum score use: --fail-under=
-      run:
+      run: |
+        pip install pylint
         OUTPUT=$(pylint tobac --disable=C | tail -n 3)
         #OUTPUT=$(shell command or script to extract the part of the output that we wanna post as comment)
         echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
