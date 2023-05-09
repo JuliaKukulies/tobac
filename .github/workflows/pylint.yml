@@ -1,8 +1,7 @@
-name: pylint
+name: Python linting 
 on: [push, pull_request]
 jobs:
-  run-pylint:
-    name: Run-pylint
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -14,16 +13,17 @@ jobs:
       - name: Install tobac
         run: pip install .
       - name: Lint with pylint
+        id: pylint-output
         # omit conventions, for minimum score use: --fail-under=
         run: |
           pip install pylint
           OUTPUT=$(pylint tobac --disable=C | tail -n 3)
           #OUTPUT=$(shell command or script to extract the part of the output that we wanna post as comment)
-          echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
+          echo "MESSAGE=$OUTPUT" >> $GITHUB_OUTPUT
       - name: Post result to PR
         uses: mshick/add-pr-comment@v1
         with:
-          message: ${{ env.MESSAGE }}
+          message: ${{ steps.pylint-output.outputs.MESSAGE }} 
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub token
           allow-repeats: false # This is the default
