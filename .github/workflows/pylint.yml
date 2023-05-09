@@ -1,27 +1,29 @@
 name: pylint
 on: [pull_request]
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Check out Git repository
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-    - name: Install tobac
-      run: pip install .
-    - name: Lint with pylint
-      # omit conventions, for minimum score use: --fail-under=
-      run: |
-        pip install pylint
-        OUTPUT=$(pylint tobac --disable=C | tail -n 3)
-        #OUTPUT=$(shell command or script to extract the part of the output that we wanna post as comment)
-        echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
-    - name: Post result to PR
-      uses: mshick/add-pr-comment@v1
-      with:
-        message: ${{ env.MESSAGE }}
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub token
-        allow-repeats: false # This is the default
+  run-pylint:
+    name: Run-pylint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install tobac
+        run: pip install .
+      - name: Lint with pylint
+        # omit conventions, for minimum score use: --fail-under=
+        run: |
+          pip install pylint
+          OUTPUT=$(pylint tobac --disable=C | tail -n 3)
+          #OUTPUT=$(shell command or script to extract the part of the output that we wanna post as comment)
+          echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
+      - name: Post result to PR
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: ${{ env.MESSAGE }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub token
+          allow-repeats: false # This is the default
