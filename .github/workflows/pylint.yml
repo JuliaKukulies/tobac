@@ -1,10 +1,10 @@
 name: Linting
 on:
   branches:
-    main
+    - 'main'
   pull-request:
     branches:
-      - 'lint_*'
+      - 'lint*'
 
 jobs:
   build:
