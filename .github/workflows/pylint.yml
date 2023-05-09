@@ -17,9 +17,10 @@ jobs:
       run: pip install pylint
     - name: Lint with pylint
       # omit conventions, for minimum score use: --fail-under=
-      run: OUTPUT=$(pylint tobac --disable=C | tail -n 3)
-      #OUTPUT=$(shell command or script to extract the part of the output that we wanna post as comment)
-      echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
+      run:
+        OUTPUT=$(pylint tobac --disable=C | tail -n 3)
+        #OUTPUT=$(shell command or script to extract the part of the output that we wanna post as comment)
+        echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
     - name: Post result to PR
       uses: mshick/add-pr-comment@v1
       with:
