@@ -71,13 +71,30 @@ tobac.tracking module
 tobac.utils modules
 ------------------
 
-tobac.utils.general modules
+tobac.utils.general module
 ------------------
 
 .. automodule:: tobac.utils.general
    :members:
    :undoc-members:
    :show-inheritance:
+
+tobac.utils.internal module
+------------------
+
+.. automodule:: tobac.utils.internal
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tobac.utils.periodic_boundaries module
+------------------
+
+.. automodule:: tobac.utils.periodic_boundaries
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 tobac.utils.mask modules
 ------------------
